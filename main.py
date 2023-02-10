@@ -1,10 +1,11 @@
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import StatesGroup, State
-from aiogram.types import Message, ParseMode
+from aiogram.types import Message, CallbackQuery
 
 from aiogram_dialog import Window, Dialog, DialogRegistry, DialogManager, StartMode
-from aiogram_dialog.widgets.text import Jinja
+from aiogram_dialog.widgets.kbd import Button
+from aiogram_dialog.widgets.text import Const
 
 storage = MemoryStorage()
 bot = Bot(token='5536456718:AAFcwdBSUxgiFNvIrvR17vottb3s169-1fY')
@@ -15,29 +16,22 @@ registry = DialogRegistry(dp)
 class MySG(StatesGroup):
     main = State()
 
-class DialogSG(StatesGroup):
-    ANIMALS = State()
+async def go_clicked(c: CallbackQuery, button: Button, manager: DialogManager):
+    await c.message.answer("Tugma bosildi!")
 
 
-# let's assume this is our window data getter
-async def get_data(**kwargs):
-    return {
-        "title": "Animals list",
-        "animals": ["cat", "dog", "my brother's tortoise"]
-    }
+go_btn = Button(
+    Const("Meni bosing"),
+    id="go",  # id is used to detect which button is clicked
+    on_click=go_clicked,
+)
 
-html_text = Jinja("""
-<b>{{title}}</b>
-{% for animal in animals %}
-* <a href="https://yandex.ru/search/?text={{ animal }}">{{ animal|capitalize }}</a>
-{% endfor %}
-""")
+
 
 main_window = Window(
-    html_text,
-    parse_mode=ParseMode.HTML,  # do not forget to set parse mode
-    state=DialogSG.ANIMALS,
-    getter=get_data
+    Const("Bu Mening tugmam"),
+    go_btn, # bizning tugmamiz
+    state=MySG.main,
 )
 
 
@@ -47,12 +41,9 @@ registry.register(dialog)
 
 @dp.message_handler(commands=["start"])
 async def start(m: Message, dialog_manager: DialogManager):
-    await m.answer("/animals komandasini yozing")
+    await dialog_manager.start(MySG.main, mode=StartMode.RESET_STACK)
 
 
-@dp.message_handler(commands="animals")
-async def animals(m: Message, dialog_manager: DialogManager):
-    await dialog_manager.start(DialogSG.ANIMALS, mode=StartMode.RESET_STACK)
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
