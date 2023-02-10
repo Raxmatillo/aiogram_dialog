@@ -1,4 +1,4 @@
-# aiogram_dialog bilan tanishamiz
+# aiogram_dialog da widgetlar bilan tanishamiz
 <hr>
 <h3><a href="#installation">O'rnatish</a></h3>
 
@@ -11,6 +11,5 @@
     Button - tugma yoziladi,
     id - tugma bosilganda callback sifatida keluvchi id 
     state - state yoziladi
-    
-    
+
 </p>
