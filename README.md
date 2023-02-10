@@ -1,15 +1,13 @@
-# aiogram_dialog da widgetlar bilan tanishamiz
+# aiogram_dialog da tugmalar bilan ishlash bilan tanishamiz
 <hr>
-<h3><a href="#installation">O'rnatish</a></h3>
+<h3><a href="#installation">Dokumentatsiya</a></h3>
 
 
 <br id="installation">
-    Ushbu branchda oddiy keyboard yozamiz va uni bosganda matn bilan javob beruvchi dastur yozamiz </br>
-    Avvalo <b>MySG</b> nomli state hosil qilamiz. So'ng <b>Window</b> classi yordamida Inline tugmamizni hamda uning matnini <b>main_window</b> o'zgaruchisida saqlaymiz.</br>
-
-    Const - Matn xabari yoziladi
-    Button - tugma yoziladi,
-    id - tugma bosilganda callback sifatida keluvchi id 
-    state - state yoziladi
-
+    Ushbu branchda tugmalar va ularning turlari bilan tanishib chiqamiz </br>
+    /start  komandasi berilganda uning ichidagi MySG.main state ishga tushadi, bu state 
+    qaysi <b>Window</b> da kelsa shu <b>Window</b> ishga tushadi.
+    </br>
+    <b>Button</b> ichidagi <code>on_click</code> parametriga funksiya nomi (<em>go_clicked</em>)
+    yoziladi. Biz bu funksiyani yuqorida e'lon qilib qo'yganmiz.
 </p>
