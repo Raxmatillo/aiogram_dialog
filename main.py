@@ -4,8 +4,10 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 from aiogram.types import Message
 
 from aiogram_dialog import Window, Dialog, DialogRegistry, DialogManager, StartMode
-from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.text import Const
+
+from aiogram_dialog_url import go_btn
+from buttons import row, column, group, scrolling_group
 
 storage = MemoryStorage()
 bot = Bot(token='5536456718:AAFcwdBSUxgiFNvIrvR17vottb3s169-1fY')
@@ -17,12 +19,53 @@ class MySG(StatesGroup):
     main = State()
 
 
+
+class DialogSG(StatesGroup):
+    ANIMALS = State()
+
+
+async def get_data(**kwargs):
+    return {
+        "title": "Animals list",
+        "animals": ['cat', 'dog', 'my brother\'s tortoise']
+    }
+
+
+
+
 main_window = Window(
-    Const("Hello, unknown person"),
-    Button(Const("Useless button"), id="nothing"),
-    state=MySG.main,
+    Const("Mening github sahifam"),
+    go_btn,
+    state=MySG.main
 )
-dialog = Dialog(main_window)
+
+row_button_window = Window(
+    Const("Bu row tugmalar"),
+    row,
+    state=MySG.main
+)
+
+column_button_window = Window(
+    Const("Bu column tugmalar"),
+    column,
+    state=MySG.main
+)
+
+group_button_window = Window(
+    Const("Group buttons"),
+    group,
+    state=MySG.main
+)
+
+
+scrolling_group_window = Window(
+    Const("Scrolling buttons"),
+    scrolling_group,
+    state=MySG.main
+)
+
+
+dialog = Dialog(scrolling_group_window)
 registry.register(dialog)
 
 
