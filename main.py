@@ -5,6 +5,8 @@ from aiogram.types import Message
 
 from aiogram_dialog import Window, Dialog, DialogRegistry, DialogManager, StartMode
 from aiogram_dialog.widgets.text import Const
+from aiogram_dialog.widgets.kbd import Button, Group
+from input_types import check, fruits_kbd, get_data
 
 from aiogram_dialog_url import go_btn
 from buttons import row, column, group, scrolling_group
@@ -20,52 +22,16 @@ class MySG(StatesGroup):
 
 
 
-class DialogSG(StatesGroup):
-    ANIMALS = State()
-
-
-async def get_data(**kwargs):
-    return {
-        "title": "Animals list",
-        "animals": ['cat', 'dog', 'my brother\'s tortoise']
-    }
-
-
-
 
 main_window = Window(
-    Const("Mening github sahifam"),
-    go_btn,
-    state=MySG.main
-)
-
-row_button_window = Window(
-    Const("Bu row tugmalar"),
-    row,
-    state=MySG.main
-)
-
-column_button_window = Window(
-    Const("Bu column tugmalar"),
-    column,
-    state=MySG.main
-)
-
-group_button_window = Window(
-    Const("Group buttons"),
-    group,
-    state=MySG.main
+    Const("Selected fruits"),
+    fruits_kbd,
+    state=MySG.main,
+    getter=get_data
 )
 
 
-scrolling_group_window = Window(
-    Const("Scrolling buttons"),
-    scrolling_group,
-    state=MySG.main
-)
-
-
-dialog = Dialog(scrolling_group_window)
+dialog = Dialog(main_window)
 registry.register(dialog)
 
 
