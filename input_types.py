@@ -37,9 +37,9 @@ async def on_fruit_selected(c: CallbackQuery, widget: Any, manager: DialogManage
     print("Fruit selected:", item_id)
 
 fruits_kbd = Select(
-    Format("{item[0]} ({pos}/data[count]})"), # E.g 'Apple (1/4)'
+    Format("{item[0]} ({pos}/{data[count]})"),  # E.g `✓ Apple (1/4)`
     id="s_fruits",
-    item_id_getter = operator.itemgetter(1), # each item is a tuple with id on a first˓→position
-    items="fruits", # we will use items from window data at a key `fruits`
-    on_click=on_fruit_selected
+    item_id_getter=operator.itemgetter(1),  # each item is a tuple with id on a first position
+    items="fruits",  # we will use items from window data at a key `fruits`
+    on_click=on_fruit_selected,
 )
