@@ -17,6 +17,7 @@ from input_types import check, fruits_kbd, get_data, on_fruit_selected, fruits_k
 
 from aiogram_dialog_url import go_btn
 from buttons import row, column, group, scrolling_group
+from switch import dialog, DialogSG
 
 env = Env()
 env.read_env()
@@ -43,13 +44,13 @@ main_window = Window(
 
 
 
-dialog = Dialog(window)
+# dialog = Dialog(window)
 registry.register(dialog)
 
 
 @dp.message_handler(commands=["start"])
 async def start(m: Message, dialog_manager: DialogManager):
-    await dialog_manager.start(state=MySG.main, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(state=DialogSG.first, mode=StartMode.RESET_STACK)
 
 
 if __name__ == '__main__':
