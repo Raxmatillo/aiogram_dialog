@@ -1,5 +1,8 @@
 import operator
 
+from environs import Env
+
+
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import StatesGroup, State
@@ -8,13 +11,17 @@ from aiogram.types import Message
 from aiogram_dialog import Window, Dialog, DialogRegistry, DialogManager, StartMode
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.kbd import Button, Group, Column, Select
-from input_types import check, fruits_kbd, get_data, on_fruit_selected
+from input_types import check, fruits_kbd, get_data, on_fruit_selected, fruits_kbd_radio
 
 from aiogram_dialog_url import go_btn
 from buttons import row, column, group, scrolling_group
 
+env = Env()
+env.read_env()
+
+
 storage = MemoryStorage()
-API_TOKEN = "5536456718:AAFcwdBSUxgiFNvIrvR17vottb3s169-1fY"
+API_TOKEN = env.str("BOT_TOKEN")
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot, storage=storage)
 registry = DialogRegistry(dp)
@@ -28,7 +35,7 @@ class MySG(StatesGroup):
 
 main_window = Window(
     Format("{fruits} list"),
-    fruits_kbd,
+    fruits_kbd_radio,
     state=MySG.main,
     getter=get_data
 )
