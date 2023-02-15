@@ -3,7 +3,7 @@ import operator
 
 from aiogram.types import CallbackQuery
 from aiogram_dialog import DialogManager, ChatEvent
-from aiogram_dialog.widgets.kbd import Checkbox, ManagedCheckboxAdapter, Select, Radio
+from aiogram_dialog.widgets.kbd import Checkbox, ManagedCheckboxAdapter, Select, Radio, Multiselect
 from aiogram_dialog.widgets.text import Const, Format
 
 async def check_changed(event: ChatEvent, checkbox: ManagedCheckboxAdapter, manager: DialogManager):
@@ -61,3 +61,15 @@ fruits_kbd_radio = Radio(
     items="fruits",
     on_click=on_fruit_radio
 )
+
+
+# Multiselect bir qancha tanlash
+fruits_kbd_multiselect = Multiselect(
+    Format("✅ {item[0]}"),
+    Format("{item[0]}"),
+    id="m_fruits",
+    item_id_getter=operator.itemgetter(1),
+    items="fruits",
+)
+
+print(operator.itemgetter(1))

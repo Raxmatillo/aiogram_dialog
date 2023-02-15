@@ -11,7 +11,7 @@ from aiogram.types import Message
 from aiogram_dialog import Window, Dialog, DialogRegistry, DialogManager, StartMode
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.kbd import Button, Group, Column, Select
-from input_types import check, fruits_kbd, get_data, on_fruit_selected, fruits_kbd_radio
+from input_types import check, fruits_kbd, get_data, on_fruit_selected, fruits_kbd_radio, fruits_kbd_multiselect
 
 from aiogram_dialog_url import go_btn
 from buttons import row, column, group, scrolling_group
@@ -35,7 +35,7 @@ class MySG(StatesGroup):
 
 main_window = Window(
     Format("{fruits} list"),
-    fruits_kbd_radio,
+    fruits_kbd_multiselect,
     state=MySG.main,
     getter=get_data
 )
